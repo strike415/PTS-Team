@@ -34,3 +34,14 @@
   shell: 'apt-get purge snap -yqq 1>/dev/null 2>&1'
   ignore_errors: yes
 
+- name: Remove old Clone Clean Cron Job
+  cron:
+    name: Hourly Clean Clone Clean
+    state: absent
+  ignore_errors: yes
+
+- name: Remove old Downloads Cleaner Cron Job
+  cron:
+    name: Hourly downloads cleaner
+    state: absent
+  ignore_errors: yes
