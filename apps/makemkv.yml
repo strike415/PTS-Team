@@ -1,17 +1,24 @@
 #!/bin/bash
 #
+# Title:      MakeMKV for PGBlitz
+# Author(s):  rla999
+# URL:        https://pgblitz.com - https://github.com/rla999/makemkv-for-plexguide/
+# GNU:        General Public License v3.0
 ################################################################################
 ---
 - hosts: localhost
   gather_facts: false
   tasks:
     # FACTS #######################################################################
-    - name: 'postgres'
+
+    - name: 'Set Known Facts'
       set_fact:
-        pgrole: 'postgres'
-        intport: '5432'
-        extport: '5432'
-        image: 'postgres:latest'
+        pgrole: 'makemkv'
+        intport: '5800'
+        extport: '5801'
+        intport2: '5903'
+        extport2: '5903'
+        image: 'jlesage/makemkv'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
@@ -38,20 +45,25 @@
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
-          - '/opt/appdata/{{pgrole}}:/name of folder'
-          - '{{path.stdout}}:{{path.stdout}}'
           - '/etc/localtime:/etc/localtime:ro'
-          - '{{PGDATA}} : {{/opt/appdata/postgresql/data' \")"}'
+          - '{{path.stdout}}:{{path.stdout}}'
+          - '/opt/appdata/{{pgrole}}:/config'
+          - '/mnt/downloads/storage/output/:/output:rw'
+          - '/mnt/downloads/storage/:/storage:rw'
+
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
-          PUID: '1000'
-          PGID: '1000'
-          PGDATA: '/opt/appdata/postresql/data'
-          POSTGRES_PASSWORD: 'Strike321!'
-          POSTGRES_USER: 'kli01'
+          UID: '1000'
+          GID: '1000'
+          MAKEMKV_KEY: BETA
+          #AUTO_DISC_RIPPER: '0'
+          ENABLE_CJK_FONT: 1
+          CLEAN_TMP_DIR: 1
+          KEEP_APP_RUNNING: 1
 
     # MAIN DEPLOYMENT #############################################################
+
     - name: 'Deploying {{pgrole}}'
       docker_container:
         name: '{{pgrole}}'
