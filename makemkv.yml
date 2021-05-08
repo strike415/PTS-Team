@@ -57,6 +57,7 @@
           UID: '1000'
           GID: '1000'
           MAKEMKV_KEY: BETA
+          #AUTO_DISC_RIPPER: '0'
           ENABLE_CJK_FONT: 1
           CLEAN_TMP_DIR: 1
           KEEP_APP_RUNNING: 1
