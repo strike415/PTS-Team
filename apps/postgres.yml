@@ -6,7 +6,7 @@
   gather_facts: false
   tasks:
     # FACTS #######################################################################
-    - name: 'Set Known Facts'
+    - name: 'postgres'
       set_fact:
         pgrole: 'postgres'
         intport: '5432'
@@ -38,15 +38,18 @@
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
-          - '/opt/appdata/{{pgrole}}:/data'
+          - '/opt/appdata/{{pgrole}}:/name of folder'
           - '{{path.stdout}}:{{path.stdout}}'
           - '/etc/localtime:/etc/localtime:ro'
-
+          - 'PGDATA: /opt/appdata/postgresql/data'
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
           PUID: '1000'
           PGID: '1000'
+          PGDATA: '/opt/appdata/postresql/data'
+          POSTGRES_PASSWORD: 'Strike321!'
+          POSTGRES_USER: 'kli01'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
