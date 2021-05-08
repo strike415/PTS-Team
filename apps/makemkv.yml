@@ -48,7 +48,7 @@
           - '/etc/localtime:/etc/localtime:ro'
           - '{{path.stdout}}:{{path.stdout}}'
           - '/opt/appdata/{{pgrole}}:/config'
-          - '/mnt/downloads/storage/output/:/output:rw'
+          - '/mnt/downloads/storage/output/:/out:rw'
           - '/mnt/downloads/storage/:/storage:rw'
 
     - name: 'Setting {{pgrole}} ENV'
