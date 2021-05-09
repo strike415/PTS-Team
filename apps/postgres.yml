@@ -38,16 +38,16 @@
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
-          - '/opt/appdata/{{pgrole}}:/var/lib/postgresql/data'
-          - '{{path.stdout}}:{{path.stdout}}'
+          - '/opt/appdata/{{pgrole}}:/var/lib/postgresql/data:rw'
+          #- '{{path.stdout}}:{{path.stdout}}'
           - '/etc/localtime:/etc/localtime:ro'
-          #- 'PGDATA:/opt/appdata/postgres/data'
+          - '/PGDATA:/opt/appdata/postgres/data:rw'
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
           PUID: '1000'
           PGID: '1000'
-          PGDATA: '/opt/appdata/postresql/data'
+          PGDATA: 'local-persist'
           POSTGRES_PASSWORD: 'Strike321!'
           POSTGRES_USER: 'kli01'
 
