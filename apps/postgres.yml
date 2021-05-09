@@ -41,7 +41,7 @@
           - '/opt/appdata/{{pgrole}}:/name of folder'
           - '{{path.stdout}}:{{path.stdout}}'
           - '/etc/localtime:/etc/localtime:ro'
-          - '{{pgdata}}:{{/opt/appdata/postgresql/data}}'"
+          - '{{pgdata}}:"{{/opt/appdata/postgresql/data}}'"
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
