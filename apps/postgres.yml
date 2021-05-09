@@ -6,9 +6,9 @@
   gather_facts: false
   tasks:
     # FACTS #######################################################################
-    - name: 'postgres'
+    - name: 'postgresql'
       set_fact:
-        pgrole: 'postgres'
+        pgrole: 'postgresql'
         intport: '5432'
         extport: '5432'
         image: 'postgres:latest'
@@ -38,7 +38,7 @@
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
-          - '/opt/appdata/{{pgrole}}:/var/lib/postgres/data'
+          - '/opt/appdata/{{pgrole}}:/var/lib/postgresql/data'
           - '{{path.stdout}}:{{path.stdout}}'
           - '/etc/localtime:/etc/localtime:ro'
           #- 'PGDATA:/opt/appdata/postgres/data'
