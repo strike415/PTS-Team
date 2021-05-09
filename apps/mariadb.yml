@@ -1,23 +1,27 @@
 #!/bin/bash
 #
+# Title:      MariaDB
+# Author(s):  MariaDB Foundation
+# URL:        https://mariadb.com - https://github.com/docker-library/mariadb
+# GNU:        General Public License v2.0
 ################################################################################
 ---
 - hosts: localhost
   gather_facts: false
   tasks:
-    # FACTS #######################################################################
-    - name: 'postgres'
-      set_fact:
-        pgrole: 'postgres'
-        intport: '5432'
-        extport: '5432'
-        image: 'postgres:latest'
+    # CORE (MANDATORY) DO NOT CHANGE ###########################################
 
-    # CORE (MANDATORY) ############################################################
+    - name: 'Set Known Facts'
+      set_fact:
+        pgrole: 'mariadb'
+        intport: '3306'
+        extport: '6603'
+        image: 'mariadb:latest'
+
     - name: 'Including cron job'
       include_tasks: '/opt/communityapps/apps/_core.yml'
 
-    # LABELS ######################################################################
+    # LABELS ################################################################
     - name: 'Adding Traefik'
       set_fact:
         pg_labels:
@@ -38,20 +42,16 @@
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
-          - '/opt/appdata/{{pgrole}}:/var/lib/postgres/data'
-          - '{{path.stdout}}:{{path.stdout}}'
+          - '/opt/appdata/{{pgrole}}:/var/lib/mysql'
           - '/etc/localtime:/etc/localtime:ro'
-          #- 'PGDATA:/opt/appdata/postgres/data'
+
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
-          PUID: '1000'
-          PGID: '1000'
-          PGDATA: '/opt/appdata/postresql/data'
-          POSTGRES_PASSWORD: 'Strike321!'
-          POSTGRES_USER: 'kli01'
+          MYSQL_ROOT_PASSWORD: plexguide
 
-    # MAIN DEPLOYMENT #############################################################
+    # MAIN DEPLOYMENT ##############################################################
+
     - name: 'Deploying {{pgrole}}'
       docker_container:
         name: '{{pgrole}}'
@@ -68,3 +68,10 @@
               - '{{pgrole}}'
         state: started
         labels: '{{pg_labels}}'
+
+    # POST DEPLOYMENT ##############################################################
+
+    - name: 'Post Deployment Notes'
+      debug:
+        msg: |-
+          * Login Information * root:plexguide * This should be changed *
