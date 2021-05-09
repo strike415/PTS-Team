@@ -39,7 +39,7 @@
       set_fact:
         pg_volumes:
           - '/opt/appdata/{{pgrole}}:/postgres'
-          - '{{path.stdout}}:{{path.stdout}}'
+          #- '{{path.stdout}}:{{path.stdout}}'
           - '/etc/localtime:/etc/localtime:ro'
           - 'PGDATA:/opt/appdata/postgres/data'
     - name: 'Setting {{pgrole}} ENV'
