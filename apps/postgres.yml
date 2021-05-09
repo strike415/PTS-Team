@@ -41,7 +41,7 @@
           - '/opt/appdata/{{pgrole}}:/name of folder'
           - '{{path.stdout}}:{{path.stdout}}'
           - '/etc/localtime:/etc/localtime:ro'
-          - 'PGDATA:/var/lib/docker/volumes/PGDATA/_data:  /opt/appdata/postgres/data'
+          - 'PGDATA:/var/lib/docker/volumes/PGDATA/_data:/opt/appdata/postgres/data'
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
