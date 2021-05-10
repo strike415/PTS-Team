@@ -49,8 +49,8 @@
           PUID: '1000'
           PGID: '1000'
           - POSTGRES_DB='sneakerbot'
-          - POSTGRES_USER='sneakerbot'
-          - POSTGRES_PASSWORD='Strike321!'
+          - POSTGRES_PASSWORD:'Strike321!'
+          - POSTGRES_USER:'kli01'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
