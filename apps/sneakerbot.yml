@@ -1,3 +1,4 @@
+
 #!/bin/bash
 #
 ################################################################################
@@ -6,11 +7,11 @@
   gather_facts: false
   tasks:
     # FACTS #######################################################################
-    - name: 'Set Known Facts'
+    - name: 'postgresql'
       set_fact:
         pgrole: 'sneakerbot'
-        intport: '5900'
-        extport: '8000'
+        intport: '5432'
+        extport: '8080'
         image: 'samc621/sneakerbot'
 
     # CORE (MANDATORY) ############################################################
@@ -38,19 +39,18 @@
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
-          - '/opt/appdata/{{pgrole}}:/name of folder'
-          - '{{path.stdout}}:{{path.stdout}}'
+          - '/opt/appdata/{{pgrole}}:/var/lib/postgresql/data:rw'
+          #- '{{path.stdout}}:{{path.stdout}}'
           - '/etc/localtime:/etc/localtime:ro'
-          - 'db-data:/opt/appdata/postgres/data'
-
+          - '/db-data:/opt/appdata/postgres/data:rw'
     - name: 'Setting {{pgrole}} ENV'
       set_fact:
         pg_env:
           PUID: '1000'
           PGID: '1000'
-          - POSTGRES_DB='sneakerbot'
-          - POSTGRES_PASSWORD:'Strike321!'
-          - POSTGRES_USER:'kli01'
+          PGDATA: 'local-persist'
+          POSTGRES_PASSWORD: 'Strike321!'
+          POSTGRES_USER: 'kli01'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
