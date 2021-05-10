@@ -8,7 +8,7 @@
     # FACTS #######################################################################
     - name: 'postgresql'
       set_fact:
-        pgrole: 'postgresql'
+        pgrole: 'postgres'
         intport: '5432'
         extport: '5432'
         image: 'postgres:latest'
