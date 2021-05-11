@@ -3,7 +3,7 @@
 #
 ################################################################################
 ---
-- hosts: sneakerbot
+- hosts: localhost
   gather_facts: false
   tasks:
     # FACTS #######################################################################
@@ -52,6 +52,7 @@
           POSTGRES_PASSWORD: 'Strike321!'
           POSTGRES_USER: 'kli01'
           DATABASE_URL:  'postgres://sneakerbots:Strike321!@db:5432/sneakerbots'
+          POSTGRES_DB:  'sneakerbots'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
