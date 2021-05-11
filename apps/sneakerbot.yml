@@ -3,14 +3,14 @@
 #
 ################################################################################
 ---
-- hosts: localhost
+- hosts: postgres
   gather_facts: false
   tasks:
     # FACTS #######################################################################
-    - name: 'postgresql'
+    - name: 'sneakerbots'
       set_fact:
-        pgrole: 'sneakerbot'
-        intport: '5432'
+        pgrole: 'sneakerbots'
+        intport: '172.18.0.36:5432'
         extport: '8080'
         image: 'samc621/sneakerbot'
 
@@ -51,6 +51,7 @@
           PGDATA: 'local-persist'
           POSTGRES_PASSWORD: 'Strike321!'
           POSTGRES_USER: 'kli01'
+          DATABASE_URL:  'postgres://sneakerbots:Strike321!@db:5432/sneakerbots'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
