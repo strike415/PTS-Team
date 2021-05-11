@@ -3,13 +3,13 @@
 #
 ################################################################################
 ---
-- hosts: sneakerbots
+- hosts: sneakerbot
   gather_facts: false
   tasks:
     # FACTS #######################################################################
-    - name: 'sneakerbots'
+    - name: 'sneakerbot'
       set_fact:
-        pgrole: 'sneakerbots'
+        pgrole: 'sneakerbot'
         intport: '172.18.0.36:5432'
         extport: '8080'
         image: 'samc621/sneakerbot'
